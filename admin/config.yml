@@ -1,0 +1,23 @@
+backend:
+  name: github
+  repo: nipunadhamma/nipunadhamma-live
+  branch: main
+
+media_folder: "images"
+public_folder: "/images"
+
+collections:
+  - name: "dashboard"
+    label: "දත්ත පාලක පුවරුව"
+    delete: false
+    editor:
+      preview: false
+    files:
+      - name: "live_data"
+        label: "වෙබ් අඩවියේ තොරතුරු"
+        file: "data.json"
+        fields:
+          - { label: "ළඟම එන පෝය දවස", name: "poya", widget: "string", default: "වෙසක් පෝය" }
+          - { label: "දවසේ දහම් පණිවිඩය", name: "quote", widget: "text", default: "තණ්හාය ජායතී සෝකෝ..." }
+          - { label: "හිරු උදාව (Sunrise)", name: "sunrise", widget: "string", default: "06:00 AM" }
+          - { label: "හිරු බැසීම (Sunset)", name: "sunset", widget: "string", default: "06:15 PM" }
