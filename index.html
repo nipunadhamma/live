@@ -7,115 +7,22 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@500;700&family=Noto+Serif+Sinhala:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   
   <style>
-    :root {
-      --bg-color: #f7f5f0;
-      --card-bg: #ffffff;
-      --text-main: #2c2520;
-      --text-muted: #6e655f;
-      --accent-gold: #b38f4e;
-      --border-color: #e8e2d5;
-    }
-
-    body {
-      font-family: 'Noto Serif Sinhala', 'Abhaya Libre', serif;
-      background-color: var(--bg-color);
-      color: var(--text-main);
-      margin: 0;
-      padding: 40px 20px;
-      line-height: 1.6;
-    }
-
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    header {
-      text-align: center;
-      margin-bottom: 50px;
-    }
-
-    header h1 {
-      font-size: 42px;
-      color: var(--text-main);
-      margin: 0 0 10px 0;
-      font-weight: 700;
-      letter-spacing: 1px;
-    }
-
-    header .subtitle {
-      font-size: 18px;
-      color: var(--accent-gold);
-      margin: 0;
-      font-style: italic;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 30px;
-      margin-bottom: 30px;
-    }
-
-    .card {
-      background: var(--card-bg);
-      border-radius: 12px;
-      padding: 30px;
-      box-shadow: 0 4px 20px rgba(179, 143, 78, 0.08);
-      border: 1px solid var(--border-color);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      text-align: left;
-    }
-
-    .card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 25px rgba(179, 143, 78, 0.12);
-    }
-
-    .card h2 {
-      font-size: 16px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--accent-gold);
-      margin-top: 0;
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      border-bottom: 1px dashed var(--border-color);
-      padding-bottom: 10px;
-    }
-
-    .card p {
-      font-size: 20px;
-      line-height: 1.8;
-      color: var(--text-main);
-      margin: 0;
-    }
-
-    .time-display {
-      font-size: 28px !important;
-      font-weight: bold;
-      color: var(--text-main);
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 60px;
-      font-size: 14px;
-      color: var(--text-muted);
-    }
-
-    /* දුරකථන තිර සඳහා හැඩගැස්වීම */
-    @media (max-width: 600px) {
-      body { padding: 20px 15px; }
-      header h1 { font-size: 32px; }
-      .grid { grid-template-columns: 1fr; gap: 20px; }
-      .card { padding: 20px; }
-      .card p { font-size: 18px; }
-    }
+    :root { --bg-color: #f7f5f0; --card-bg: #ffffff; --text-main: #2c2520; --text-muted: #6e655f; --accent-gold: #b38f4e; --border-color: #e8e2d5; }
+    body { font-family: 'Noto Serif Sinhala', 'Abhaya Libre', serif; background-color: var(--bg-color); color: var(--text-main); margin: 0; padding: 40px 20px; line-height: 1.6; }
+    .container { max-width: 900px; margin: 0 auto; }
+    header { text-align: center; margin-bottom: 50px; }
+    header h1 { font-size: 42px; color: var(--text-main); margin: 0 0 10px 0; font-weight: 700; }
+    header .subtitle { font-size: 18px; color: var(--accent-gold); margin: 0; font-style: italic; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; margin-bottom: 30px; }
+    .card { background: var(--card-bg); border-radius: 12px; padding: 30px; box-shadow: 0 4px 20px rgba(179, 143, 78, 0.08); border: 1px solid var(--border-color); text-align: left; }
+    .card h2 { font-size: 16px; text-transform: uppercase; color: var(--accent-gold); margin-top: 0; margin-bottom: 20px; border-bottom: 1px dashed var(--border-color); padding-bottom: 10px; }
+    .card p { font-size: 20px; line-height: 1.8; color: var(--text-main); margin: 0; }
+    .time-display { font-size: 28px !important; font-weight: bold; }
+    footer { text-align: center; margin-top: 60px; font-size: 14px; color: var(--text-muted); }
+    @media (max-width: 600px) { body { padding: 20px 15px; } header h1 { font-size: 32px; } .grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -129,24 +36,22 @@
     <div class="grid">
       <div class="card">
         <h2>📅 ළඟම එන පෝය දවස</h2>
-        <p id="poya">වෙසක් පුර පසළොස්වක පෝය දවස</p>
+        <p id="poya">ලෝඩ් වෙමින් පවතී...</p>
       </div>
-      
       <div class="card">
         <h2>🙏 දවසේ දහම් පණිවිඩය</h2>
-        <p id="quote">"තණ්හාය ජායතී සෝකෝ - තණ්හාය ජායතී භයං<br>තණ්හාය විප්පමුත්තස්ස - නත්ථි සෝකෝ කුතෝ භයං"</p>
+        <p id="quote">ලෝඩ් වෙමින් පවතී...</p>
       </div>
     </div>
 
     <div class="grid">
       <div class="card">
-        <h2>☀️ හිරු උදාව (Sunrise)</h2>
-        <p id="sunrise" class="time-display">06:00 AM</p>
+        <h2>☀️ හිරು උදාව (Sunrise)</h2>
+        <p id="sunrise" class="time-display">--:-- --</p>
       </div>
-      
       <div class="card">
-        <h2>🌙 හිරු බැසීම (Sunset)</h2>
-        <p id="sunset" class="time-display">06:15 PM</p>
+        <h2>🌙 හිරು බැසීම (Sunset)</h2>
+        <p id="sunset" class="time-display">--:-- --</p>
       </div>
     </div>
 
@@ -155,5 +60,17 @@
     </footer>
   </div>
 
+  <script>
+    // data.json ෆයිල් එකෙන් දත්ත කියවා පිටුවට ඇතුළත් කිරීම
+    fetch('./data.json')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('poya').innerText = data.poya;
+        document.getElementById('quote').innerHTML = data.quote.replace(/\n/g, '<br>');
+        document.getElementById('sunrise').innerText = data.sunrise;
+        document.getElementById('sunset').innerText = data.sunset;
+      })
+      .catch(err => console.log("Error loading data:", err));
+  </script>
 </body>
 </html>
