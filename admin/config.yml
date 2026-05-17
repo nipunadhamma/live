@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: nipunadhamma/nipunadhamma-live
+  repo: nipunadhamma/live
   branch: main
 
 media_folder: "images"
