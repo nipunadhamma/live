@@ -26,5 +26,140 @@
       padding: 40px 20px;
       line-height: 1.6;
     }
+  .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
 
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    header h1 {
+      font-size: 42px;
+      color: var(--text-main);
+      margin: 0 0 10px 0;
+      font-weight: 700;
+    }
+
+    header .subtitle {
+      font-size: 18px;
+      color: var(--accent-gold);
+      margin: 0;
+      font-style: italic;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      margin-bottom: 30px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 4px 20px rgba(179, 143, 78, 0.08);
+      border: 1px solid var(--border-color);
+      text-align: left;
+    }
+
+    .card h2 {
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent-gold);
+      margin-top: 0;
+      margin-bottom: 20px;
+      border-bottom: 1px dashed var(--border-color);
+      padding-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 20px;
+      line-height: 1.8;
+      color: var(--text-main);
+      margin: 0;
+    }
+
+    .time-display {
+      font-size: 28px !important;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 60px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 600px) {
+      body { padding: 20px 15px; }
+      header h1 { font-size: 32px; }
+      .grid { grid-template-columns: 1fr; gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>නිපුණධම්ම</h1>
+      <p class="subtitle">ප්‍රායෝගික දහම් පණිවිඩ පෙළගැස්ම</p>
+    </header>
+    
+    <div class="grid">
+      <div class="card">
+        <h2>📅 ළඟම එන පෝය දවස</h2>
+        <p id="poya">ලෝඩ් වෙමින් පවතී...</p>
+      </div>
+      
+      <div class="card">
+        <h2>🙏 දවසේ දහම් පණිවිඩය</h2>
+        <p id="quote">ලෝඩ් වෙමින් පවතී...</p>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h2>☀️ හිරු උදාව (Sunrise)</h2>
+        <p id="sunrise" class="time-display">--:-- --</p>
+      </div>
+      
+      <div class="card">
+        <h2>🌙 හිරු බැසීම (Sunset)</h2>
+        <p id="sunset" class="time-display">--:-- --</p>
+      </div>
+    </div>
+
+    <footer>
+      <p>© 2026 නිපුණධම්ම. සියලු හිමිකම් ඇවිරිණි.</p>
+    </footer>
+  </div>
+
+  <script>
+    // බ්‍රවුසර් එකේ කැචේ (Cache) හිරවීම වැළැක්වීමට අහඹු අංකයක් එකතු කිරීම
+    fetch('data.json?v=' + Math.random())
+      .then(response => response.json())
+      .then(data => {
+        if(data.poya) document.getElementById('poya').innerText = data.poya;
+        if(data.quote) document.getElementById('quote').innerHTML = data.quote.replace(/\n/g, '<br>');
+        if(data.sunrise) document.getElementById('sunrise').innerText = data.sunrise;
+        if(data.sunset) document.getElementById('sunset').innerText = data.sunset;
+      })
+      .catch(error => {
+        console.error('දත්ත ලබාගැනීමේදී ගැටලුවක්:', error);
+        // දත්ත තවම හදලා නැතිනම් පරණ විදිහටම පෙන්වීම
+        document.getElementById('poya').innerText = "වෙසක් පුර පසළොස්වක පෝය දවස";
+        document.getElementById('quote').innerText = "තණ්හාය ජායතී සෝකෝ - තණ්හාය ජායතී භයං";
+        document.getElementById('sunrise').innerText = "06:00 AM";
+        document.getElementById('sunset').innerText = "06:15 PM";
+      });
+  </script>
+
+</body>
+</html>
   
