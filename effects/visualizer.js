@@ -1,3 +1,7 @@
+
+let angle = 0;
+
+
 /* =========================
 CANVAS SETUP
 ========================= */
@@ -103,14 +107,52 @@ function draw() {
         ctx.stroke();
     }
 
-    /* =========================
-    CENTER CORE
-    ========================= */
+   /* =========================
+CENTER CORE (POLISHED)
+========================= */
 
-    ctx.beginPath();
-    ctx.arc(centerX, centerY, 20, 0, Math.PI * 2);
-    ctx.fillStyle = "gold";
-    ctx.shadowBlur = 20;
-    ctx.shadowColor = "gold";
-    ctx.fill();
+ctx.beginPath();
+ctx.arc(centerX, centerY, 22 + glow * 10, 0, Math.PI * 2);
+
+ctx.fillStyle = `rgba(255,215,0,${0.8 + glow})`;
+
+ctx.shadowBlur = 30 + glow * 50;
+ctx.shadowColor = "gold";
+
+ctx.fill();
+/* =========================
+BEAT INTENSITY
+========================= */
+
+let bass = 0;
+
+for (let i = 0; i < 10; i++) {
+    bass += dataArray[i];
 }
+
+bass = bass / 10;
+
+/* glow intensity based on bass */
+const glow = bass / 255;
+    /* =========================
+DHARMA CHAKRA ROTATION
+========================= */
+
+angle += 0.01;
+
+ctx.save();
+ctx.translate(centerX, centerY);
+ctx.rotate(angle);
+
+ctx.strokeStyle = "rgba(255,215,0,0.4)";
+ctx.lineWidth = 1;
+
+for (let i = 0; i < 8; i++) {
+    ctx.rotate(Math.PI / 4);
+    ctx.beginPath();
+    ctx.moveTo(0, 30);
+    ctx.lineTo(0, 60);
+    ctx.stroke();
+}
+
+ctx.restore();
