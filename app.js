@@ -17,7 +17,7 @@ const volume = document.getElementById("volume");
 const fullscreenBtn = document.getElementById("fullscreenBtn");
 
 /* =========================
-LOAD AUDIO FILE
+LOAD AUDIO
 ========================= */
 
 audioFile.addEventListener("change", function () {
@@ -26,20 +26,15 @@ audioFile.addEventListener("change", function () {
 
     const url = URL.createObjectURL(file);
     audio.src = url;
-    audio.load();
 });
 
 /* =========================
-PLAY / PAUSE / STOP
+PLAY CONTROLS
 ========================= */
 
-playBtn.addEventListener("click", () => {
-    audio.play();
-});
+playBtn.addEventListener("click", () => audio.play());
 
-pauseBtn.addEventListener("click", () => {
-    audio.pause();
-});
+pauseBtn.addEventListener("click", () => audio.pause());
 
 stopBtn.addEventListener("click", () => {
     audio.pause();
@@ -51,17 +46,17 @@ TIME UPDATE
 ========================= */
 
 audio.addEventListener("loadedmetadata", () => {
-    seekBar.max = audio.duration;
+    seekBar.max = Math.floor(audio.duration);
     durationEl.textContent = formatTime(audio.duration);
 });
 
 audio.addEventListener("timeupdate", () => {
-    seekBar.value = audio.currentTime;
+    seekBar.value = Math.floor(audio.currentTime);
     currentTimeEl.textContent = formatTime(audio.currentTime);
 });
 
 /* =========================
-SEEK BAR
+SEEK
 ========================= */
 
 seekBar.addEventListener("input", () => {
@@ -81,12 +76,10 @@ FULLSCREEN
 ========================= */
 
 fullscreenBtn.addEventListener("click", () => {
-    const elem = document.documentElement;
-
-    if (document.fullscreenElement) {
-        document.exitFullscreen();
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
     } else {
-        elem.requestFullscreen();
+        document.exitFullscreen();
     }
 });
 
@@ -97,11 +90,11 @@ FORMAT TIME
 function formatTime(sec) {
     const m = Math.floor(sec / 60);
     const s = Math.floor(sec % 60);
-    return `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
+    return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
 }
 
 /* =========================
-AUTO HIDE UI (FOR RECORDING)
+AUTO HIDE UI (SMOOTH + STABLE)
 ========================= */
 
 let uiTimeout;
@@ -116,11 +109,19 @@ function hideUI() {
     document.getElementById("bottomPanel").style.opacity = "0";
 }
 
-document.addEventListener("mousemove", () => {
+function resetUIHideTimer() {
     showUI();
 
     clearTimeout(uiTimeout);
     uiTimeout = setTimeout(() => {
         hideUI();
     }, 3000);
-});
+}
+
+/* better than raw mousemove spam */
+document.addEventListener("mousemove", resetUIHideTimer);
+document.addEventListener("keydown", resetUIHideTimer);
+document.addEventListener("click", resetUIHideTimer);
+
+/* initial state */
+resetUIHideTimer();
