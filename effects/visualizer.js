@@ -1,6 +1,4 @@
-
 let angle = 0;
-
 
 /* =========================
 CANVAS SETUP
@@ -13,7 +11,7 @@ canvas.width = 300;
 canvas.height = 300;
 
 /* =========================
-AUDIO CONTEXT SETUP
+AUDIO SETUP
 ========================= */
 
 const audio = document.getElementById("audio");
@@ -24,7 +22,7 @@ let source;
 let dataArray;
 
 /* =========================
-INIT AUDIO CONTEXT (on play)
+START AUDIO
 ========================= */
 
 audio.addEventListener("play", () => {
@@ -37,8 +35,7 @@ audio.addEventListener("play", () => {
         analyser.connect(audioCtx.destination);
 
         analyser.fftSize = 256;
-        const bufferLength = analyser.frequencyBinCount;
-        dataArray = new Uint8Array(bufferLength);
+        dataArray = new Uint8Array(analyser.frequencyBinCount);
     }
 
     draw();
@@ -59,11 +56,24 @@ function draw() {
 
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
-
     const radius = 80;
 
     /* =========================
-    BACKGROUND GLOW CIRCLE
+    GLOW INTENSITY (FIXED ORDER)
+    ========================= */
+
+    let bass = 0;
+
+    for (let i = 0; i < 10; i++) {
+        bass += dataArray[i];
+    }
+
+    bass = bass / 10;
+
+    const glow = bass / 255;
+
+    /* =========================
+    BACKGROUND GLOW
     ========================= */
 
     const gradient = ctx.createRadialGradient(
@@ -83,18 +93,17 @@ function draw() {
     CIRCULAR BARS
     ========================= */
 
-    const bars = dataArray.length;
+    for (let i = 0; i < dataArray.length; i++) {
 
-    for (let i = 0; i < bars; i++) {
-        const angle = (i / bars) * Math.PI * 2;
+        const a = (i / dataArray.length) * Math.PI * 2;
 
         const barHeight = dataArray[i] / 2;
 
-        const x1 = centerX + Math.cos(angle) * radius;
-        const y1 = centerY + Math.sin(angle) * radius;
+        const x1 = centerX + Math.cos(a) * radius;
+        const y1 = centerY + Math.sin(a) * radius;
 
-        const x2 = centerX + Math.cos(angle) * (radius + barHeight);
-        const y2 = centerY + Math.sin(angle) * (radius + barHeight);
+        const x2 = centerX + Math.cos(a) * (radius + barHeight);
+        const y2 = centerY + Math.sin(a) * (radius + barHeight);
 
         const alpha = dataArray[i] / 255;
 
@@ -107,52 +116,40 @@ function draw() {
         ctx.stroke();
     }
 
-   /* =========================
-CENTER CORE (POLISHED)
-========================= */
-
-ctx.beginPath();
-ctx.arc(centerX, centerY, 22 + glow * 10, 0, Math.PI * 2);
-
-ctx.fillStyle = `rgba(255,215,0,${0.8 + glow})`;
-
-ctx.shadowBlur = 30 + glow * 50;
-ctx.shadowColor = "gold";
-
-ctx.fill();
-/* =========================
-BEAT INTENSITY
-========================= */
-
-let bass = 0;
-
-for (let i = 0; i < 10; i++) {
-    bass += dataArray[i];
-}
-
-bass = bass / 10;
-
-/* glow intensity based on bass */
-const glow = bass / 255;
     /* =========================
-DHARMA CHAKRA ROTATION
-========================= */
+    CENTER CORE (FIXED)
+    ========================= */
 
-angle += 0.01;
-
-ctx.save();
-ctx.translate(centerX, centerY);
-ctx.rotate(angle);
-
-ctx.strokeStyle = "rgba(255,215,0,0.4)";
-ctx.lineWidth = 1;
-
-for (let i = 0; i < 8; i++) {
-    ctx.rotate(Math.PI / 4);
     ctx.beginPath();
-    ctx.moveTo(0, 30);
-    ctx.lineTo(0, 60);
-    ctx.stroke();
-}
+    ctx.arc(centerX, centerY, 22 + glow * 10, 0, Math.PI * 2);
 
-ctx.restore();
+    ctx.fillStyle = `rgba(255,215,0,${0.7 + glow * 0.3})`;
+
+    ctx.shadowBlur = 30 + glow * 50;
+    ctx.shadowColor = "gold";
+
+    ctx.fill();
+
+    /* =========================
+    DHARMA CHAKRA
+    ========================= */
+
+    angle += 0.01;
+
+    ctx.save();
+    ctx.translate(centerX, centerY);
+    ctx.rotate(angle);
+
+    ctx.strokeStyle = "rgba(255,215,0,0.4)";
+    ctx.lineWidth = 1;
+
+    for (let i = 0; i < 8; i++) {
+        ctx.rotate(Math.PI / 4);
+        ctx.beginPath();
+        ctx.moveTo(0, 30);
+        ctx.lineTo(0, 60);
+        ctx.stroke();
+    }
+
+    ctx.restore();
+}
