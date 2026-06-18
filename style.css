@@ -203,3 +203,6 @@ BOTTOM PANEL
     margin-top: 5px;
     color: white;
 }
+#controls, #bottomPanel {
+    transition: 0.5s;
+}
