@@ -99,3 +99,28 @@ function formatTime(sec) {
     const s = Math.floor(sec % 60);
     return `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
 }
+
+/* =========================
+AUTO HIDE UI (FOR RECORDING)
+========================= */
+
+let uiTimeout;
+
+function showUI() {
+    document.getElementById("controls").style.opacity = "1";
+    document.getElementById("bottomPanel").style.opacity = "1";
+}
+
+function hideUI() {
+    document.getElementById("controls").style.opacity = "0";
+    document.getElementById("bottomPanel").style.opacity = "0";
+}
+
+document.addEventListener("mousemove", () => {
+    showUI();
+
+    clearTimeout(uiTimeout);
+    uiTimeout = setTimeout(() => {
+        hideUI();
+    }, 3000);
+});
